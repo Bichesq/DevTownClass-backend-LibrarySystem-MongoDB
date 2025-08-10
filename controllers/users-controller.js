@@ -1,0 +1,1 @@
+const { BookMobel, UserMobel } = require('../models/index');

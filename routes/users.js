@@ -1,5 +1,5 @@
 const express = require("express");
-const users = require("../data/users.json");
+const { BookMobel, UserMobel } = require("../models");
 const router = express.Router();
 
 
