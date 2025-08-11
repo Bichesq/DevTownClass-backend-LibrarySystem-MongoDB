@@ -33,8 +33,8 @@ const getBookById = async (req, res) => {
 
 const createBook = async (req, res) => {
     const newBook = req.body;
-    if (newBook.id && newBook.name && newBook.author && newBook.genre && newBook.publisher) {
-      const book = BookModel.find((book) => book.id == newBook.id);
+    if (newBook.name && newBook.author && newBook.genre && newBook.publisher) {
+      const book = await BookModel.find({ name: newBook.name});
       if (book) {
         return res.status(400).json({
           success: false,
