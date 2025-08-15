@@ -1,6 +1,6 @@
 const express = require('express');
 const { BookModel, UserModel } = require('../models');
-const { getAllBooks, getBookById, createBook, updateBook, deleteBook } = require('../controllers/books-controller');
+const { getAllBooks, getBookById, createBook, updateBook, deleteBook, getIssuedBooks } = require('../controllers/books-controller');
 const router = express.Router();
 
 /**
@@ -32,31 +32,7 @@ router.post("/", createBook);
  * Parameters: None
  * Returns: Array of issued books   
  */
-router.get("/issued", (req, res) => {
-    const userWithIssuedBooks = users.filter((user) => {
-        if (user.issueBook) return user;
-    });
-    const issuedBooks = [];
-    userWithIssuedBooks.forEach((user) => {
-        const book = books.find((book) => book.id == user.issueBook);
-        book.issuedTo = user.name;
-        book.issuedDate = user.issueDate;
-        book.returnDate = user.returnDate;
-
-        issuedBooks.push(book);
-    });
-    if (!issuedBooks.length) {
-        return res.status(404).json({
-            success: false,
-            message: "No books issued yet"
-        });
-    }
-    res.status(200).json({
-        success: true,
-        data: issuedBooks
-    });
-    
-});
+router.get("/issued", getIssuedBooks);
 
 /**
  * Route: /:id

@@ -4,7 +4,12 @@ require("dotenv").config();
 const DBconnection = async () => { 
     const DB_URL = process.env.MONGO_URI;
 
-    mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+    mongoose.connect(DB_URL, {
+      tls: true,
+      tlsInsecure: true,
+    //   tlsAllowInvalidCertificates: true, // Bypasses certificate validation
+    //   tlsAllowInvalidHostnames: true, // Bypasses hostname validation
+    });
 }
 
 const db = mongoose.connection;
